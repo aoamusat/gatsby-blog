@@ -7,7 +7,7 @@ description: We have a .NET application that has been running for years, but
   rebooted.  To preemptively reboot the EC2 instance nightly we decided to use
   Docker and ECS  scheduled tasks.
 featuredpost: true
-featuredimage: /img/docker2-2x.jpg
+featuredimage: /img/461260-docker-containers.jpg
 tags:
   - Devops
   - Dockers
@@ -36,9 +36,13 @@ RUN chmod +x /root/win_reboot.py
 CMD ["/root/win_reboot.py"]
 ```
 
+
+
 ```
 
 ```
+
+![]()
 
 <!--EndFragment-->
 
