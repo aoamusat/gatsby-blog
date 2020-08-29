@@ -1,7 +1,7 @@
 ---
 templateKey: blog-post
-title: My First Experience with Docker
-date: 2020-08-27T03:21:56.824Z
+title: Getting started with dockerization using Docker containers
+date: 2020-08-29T10:55:09.416Z
 description: We have a .NET application that has been running for years, but
   once a week, the application fails to recover and needs the server needs to be
   rebooted.  To preemptively reboot the EC2 instance nightly we decided to use
@@ -15,6 +15,8 @@ tags:
   - Python
   - Cloud
 ---
+![Docker_containers](/img/docker-banner.png)
+
 <!--StartFragment-->
 
 Here is what the finished Dockerfile looks like:
@@ -35,14 +37,6 @@ RUN chmod +x /root/win_reboot.py
 
 CMD ["/root/win_reboot.py"]
 ```
-
-
-
-```
-
-```
-
-![]()
 
 <!--EndFragment-->
 
@@ -95,7 +89,9 @@ docker run -it test-name:latest /bin/bash
 This will run your container interactively and drop you into a bash shell. Alternatively, try running with environment variables passed in.
 
 ```shell
-docker run test-name:latest -e WINDOWS_EC2='EC2-instance-tagName' -e AWS_DEFAULT_REGION='aws region'-e AWS_ACCESS_KEY_ID='ID GOES HERE' -e AWS_SECRET_ACCESS_KEY='KEY GOES HERE'
+docker run test-name:latest -e WINDOWS_EC2='EC2-instance-tagName' \ 
+-e AWS_DEFAULT_REGION='aws region'-e AWS_ACCESS_KEY_ID='ID GOES HERE' \ 
+-e AWS_SECRET_ACCESS_KEY='KEY GOES HERE'
 ```
 
 If all of this is working as expected, you can go to ECS in AWS and create your task definition. It will provide you commands to push your image to ECR.
@@ -105,8 +101,10 @@ Maybe I'll add some screenshots here.
 After that you might find you have some extra docker images and containers to clean up locally. The following commands should help. Consult the docker documentation for more information. <https://docs.docker.com/engine/reference/commandline/rmi/>
 
 ````shell
-for i in ```docker images | grep '<none>'| awk '{ print $3 }'```; do docker rmi -f $i; done
-for i in `docker container ls --all | awk '{ print $1 }'`; do docker container rm $i; done
+for i in ```docker images | grep '<none>'| awk '{ print $3 }'```; \ 
+    do docker rmi -f $i; done
+for i in `docker container ls --all | awk '{ print $1 }'`; \ 
+    do docker container rm $i; done
 ````
 
 <!--EndFragment-->
