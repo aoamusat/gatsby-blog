@@ -57,10 +57,13 @@ import boto.ec2
 import os
 
 conn = boto.ec2.connect_to_region("us-east-1")
+
 instance_id_list = []
+
 for instance in os.environ['WINDOWS_EC2'].split("|"):
-for r in conn.get_all_instances(filters={"tag:Name" : instance}):
+  for r in conn.get_all_instances(filters={"tag:Name" : instance}):
 	[instance_id_list.append(i.id) for i in r.instances]
+
 conn.reboot_instances(instance_ids=instance_id_list, dry_run=False)
 ```
 
